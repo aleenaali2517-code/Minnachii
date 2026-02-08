@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Surprise Bestie 💖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  body {
+    margin:0; padding:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffc1e3, #ffb6c1);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 500px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+  }
+
+  h1,h2,p {
+    margin: 10px 0;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    background: #fff;
+    color: #ff69b4;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  button:hover { transform: scale(1.1); }
+
+  .hidden { display: none; }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 4s linear infinite;
+    color: #ff69b4;
+  }
+  @keyframes float {
+    0% { transform: translateY(0); opacity:1;}
+    100% { transform: translateY(-100vh); opacity:0;}
+  }
+
+  /* Letter typing effect */
+  .letter {
+    white-space: pre-wrap;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 15px;
+  }
+
+  .side-photo {
+    max-width: 120px;
+    border-radius: 15px;
+    margin-left: 10px;
+    vertical-align: top;
+  }
+
+  .rose-container {
+    font-size: 80px;
+    margin: 20px 0;
+  }
+
+  #finalPhoto, #whiteRose {
+    max-width: 250px;
+    margin-top: 15px;
+    border-radius: 15px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="page1">
+  <h1>⚠️ Warning ⚠️</h1>
+  <p>Emotional damage guaranteed and you might miss me after this 😌<br>Are you sure you want to continue?</p>
+  <button onclick="nextPage('page2')">Yes 💖</button>
+  <button onclick="alert('Too scared? 😏 Come back later!')">No 😅</button>
+</div>
+
+<div class="container hidden" id="page2">
+  <h2>Hey you 😌</h2>
+  <div style="display:flex; align-items:flex-start; justify-content:center;">
+    <div class="letter" id="letter1"></div>
+    <img src="that-letter.jpg" class="side-photo" alt="Photo">
+  </div>
+  <button onclick="nextPage('page3')">Next 💌</button>
+</div>
+
+<div class="container hidden" id="page3">
+  <div class="rose-container">🌹</div>
+  <h2>Awww this is for you 🥹</h2>
+  <img id="whiteRose" class="hidden" src="whiterose.jpg" alt="White Rose Boutique">
+  <p>Did you miss me?</p>
+  <button onclick="showRose()">Yes 💜</button>
+  <button onclick="alert('Hmm, maybe later 😏')">No 😅</button>
+</div>
+
+<div class="container hidden" id="page4">
+  <p>Are you bored or can I ask you one last thing?</p>
+  <button onclick="nextPage('page5')">Yes 😌</button>
+  <button onclick="alert('Ok 😎')">No 😅</button>
+</div>
+
+<div class="container hidden" id="page5">
+  <p>Will you be my forever bestfriend??</p>
+  <button onclick="showFinal()">Yes 💖</button>
+  <button onclick="alert('Hmm 😏')">No 😅</button>
+  <div id="finalMessage" class="letter hidden"></div>
+  <img src="yourphoto.jpg" id="finalPhoto" class="hidden">
+</div>
+
+<script>
+  // Floating hearts
+  setInterval(()=>{
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.innerText='💖';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=15+Math.random()*20+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),4000);
+  }, 300);
+
+  // Page navigation
+  function nextPage(id){
+    document.querySelectorAll('.container').forEach(c=>c.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    if(id==='page2') typeLetter(letterText, 'letter1');
+  }
+
+  // Typing effect for letter
+  const letterText = `So… you ignored the warning.
+Bold of you.
+I hope you know this means
+you’re officially stuck with me now 💅
+Thank you for being my safe place,
+my chaos partner,
+and the person who understands my nonsense
+without explanations 🥹
+You’re not just my best friend.
+You’re my forever one 💗
+- Aleena`;
+
+  function typeLetter(text, elementId){
+    const el = document.getElementById(elementId);
+    let i=0;
+    el.innerText='';
+    const interval = setInterval(()=>{
+      el.innerText += text[i];
+      i++;
+      if(i>=text.length) clearInterval(interval);
+    },30);
+  }
+
+  // Show white rose boutique
+  function showRose(){
+    const rose = document.getElementById('whiteRose');
+    rose.classList.remove('hidden');
+  }
+
+  function showFinal(){
+    const msg = `WAIT—You said yes???
+Okay I’m not crying, you are 😭
+Anyways I got the answer now I'm leaving bye 😉`;
+    const el = document.getElementById('finalMessage');
+    el.classList.remove('hidden');
+    let i=0;
+    el.innerText='';
+    const interval = setInterval(()=>{
+      el.innerText += msg[i];
+      i++;
+      if(i>=msg.length) clearInterval(interval);
+    },30);
+    document.getElementById('finalPhoto').classList.remove('hidden');
+  }
+</script>
+
+</body>
+  </html>
